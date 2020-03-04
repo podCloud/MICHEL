@@ -8,12 +8,9 @@ defmodule Michel.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
+      Michel.Commanded,
       Michel.Repo,
-      # Start the endpoint when the application starts
       MichelWeb.Endpoint
-      # Starts a worker by calling: Michel.Worker.start_link(arg)
-      # {Michel.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

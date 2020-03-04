@@ -70,3 +70,11 @@ config :michel, Michel.SecureTokens,
     -----END PUBLIC KEY-----
     """
   }
+
+config :michel, Michel.EventStore,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "michel_eventstore_dev",
+  hostname: "localhost",
+  pool_size: 10
