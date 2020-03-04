@@ -1,8 +1,9 @@
 defmodule MichelWeb.UserSocket do
   use Phoenix.Socket
+  alias MichelWeb.VerifyToken
 
   ## Channels
-  # channel "room:*", MichelWeb.RoomChannel
+  channel "room:*", MichelWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -15,8 +16,16 @@ defmodule MichelWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket, _connect_info) do
+    IO.inspect(token)
+
+    case VerifyToken.verify_token(token) do
+      {:ok, _} ->
+        {:ok, socket}
+
+      {:error, _} ->
+        {:error, socket}
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

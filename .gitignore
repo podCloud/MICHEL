@@ -28,3 +28,5 @@ michel-*.tar
 /priv/static/
 
 .elixir_ls
+
+node_modules
