@@ -43,7 +43,8 @@ defmodule Michel.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:commanded, "~> 1.0"},
-      {:commanded_eventstore_adapter, "~> 1.0.0"}
+      {:commanded_eventstore_adapter, "~> 1.0.0"},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 
@@ -55,6 +56,7 @@ defmodule Michel.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      "event_store.init": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
