@@ -5,15 +5,32 @@ defmodule Michel.View.Projectors.UniqueVisit do
     name: "View.Projectors.UniqueVisit",
     consistency: :strong
 
+  alias Michel.Repo
   alias Michel.View.Events.FeedVisited
   alias Michel.View.Projections.UniqueVisit
 
-  project(%FeedVisited{} = visit, _metadata, fn multi ->
-    datetime = NaiveDateTime.from_iso8601!(visit.created_at)
+  project(%FeedVisited{track_id: track_id, created_at: created_at}, _metadata, fn multi ->
+    datetime = NaiveDateTime.from_iso8601!(created_at)
 
-    Ecto.Multi.insert(multi, :unique_visits, %UniqueVisit{
-      track_id: visit.track_id,
-      created_at: NaiveDateTime.truncate(datetime, :second)
-    })
+    case Repo.get(UniqueVisit, track_id) do
+      nil ->
+        Ecto.Multi.insert(multi, :unique_visits, %UniqueVisit{
+          track_id: track_id,
+          created_at: NaiveDateTime.truncate(datetime, :second)
+        })
+
+      visit ->
+        case(NaiveDateTime.compare(NaiveDateTime.add(visit.created_at, 86400), datetime)) do
+          :gt ->
+            multi
+
+          _ ->
+            Ecto.Multi.update(
+              multi,
+              :unique_visits,
+              Ecto.Changeset.change(visit, created_at: datetime)
+            )
+        end
+    end
   end)
 end
