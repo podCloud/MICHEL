@@ -44,7 +44,8 @@ defmodule Michel.MixProject do
       {:joken, "~> 2.0"},
       {:commanded, "~> 1.0"},
       {:commanded_eventstore_adapter, "~> 1.0.0"},
-      {:ex_machina, "~> 2.4", only: :test}
+      {:ex_machina, "~> 2.4", only: :test},
+      {:commanded_ecto_projections, "~> 1.0"}
     ]
   end
 

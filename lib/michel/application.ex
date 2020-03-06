@@ -10,7 +10,8 @@ defmodule Michel.Application do
     children = [
       Michel.Commanded,
       Michel.Repo,
-      MichelWeb.Endpoint
+      MichelWeb.Endpoint,
+      Michel.View.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
