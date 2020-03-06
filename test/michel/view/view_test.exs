@@ -1,4 +1,4 @@
-defmodule Michel.ViewTest do
+defmodule Michel.View.ViewTest do
   use Michel.DataCase
 
   alias Michel.View

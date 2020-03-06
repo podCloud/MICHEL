@@ -1,4 +1,4 @@
-defmodule Michel.Aggregates.View do
+defmodule Michel.View.Aggregates.View do
   defstruct [
     :id,
     :track_id,

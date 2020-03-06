@@ -1,4 +1,5 @@
-defmodule Michel.Aggregates.ViewTest do
+defmodule Michel.View.Aggregates.ViewTest do
+  use Michel.AggregateCase, aggregate: Michel.View.Aggregates.View
   use Michel.DataCase
   import Commanded.Assertions.EventAssertions
 
