@@ -2,8 +2,8 @@ defmodule Michel.Aggregates.ViewTest do
   use Michel.DataCase
   import Commanded.Assertions.EventAssertions
 
-  alias Michel.View.VisitFeed
-  alias Michel.View.FeedVisited
+  alias Michel.View.Commands.VisitFeed
+  alias Michel.View.Events.FeedVisited
 
   test "should succeed when valid" do
     id = UUID.uuid4()

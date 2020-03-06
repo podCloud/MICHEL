@@ -1,8 +1,8 @@
 defmodule Michel.Factory do
   use ExMachina
 
-  alias Michel.View.VisitFeed
-  alias Michel.View.FeedVisited
+  alias Michel.View.Commands.VisitFeed
+  alias Michel.View.Events.FeedVisited
 
   def view_factory do
     %{

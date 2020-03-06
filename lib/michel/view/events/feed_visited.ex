@@ -1,4 +1,5 @@
-defmodule Michel.View.VisitFeed do
+defmodule Michel.View.Events.FeedVisited do
+  @derive Jason.Encoder
   defstruct [
     :id,
     :track_id,
