@@ -10,13 +10,13 @@ defmodule Michel.View.Projectors.UniqueVisit do
   alias Michel.View.Projections.UniqueVisit
 
   project(%FeedVisited{track_id: track_id, created_at: created_at}, _metadata, fn multi ->
-    datetime = NaiveDateTime.from_iso8601!(created_at)
+    datetime = created_at |> NaiveDateTime.from_iso8601!() |> NaiveDateTime.truncate(:second)
 
     case Repo.get(UniqueVisit, track_id) do
       nil ->
         Ecto.Multi.insert(multi, :unique_visits, %UniqueVisit{
           track_id: track_id,
-          created_at: NaiveDateTime.truncate(datetime, :second)
+          created_at: datetime
         })
 
       visit ->

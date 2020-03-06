@@ -24,3 +24,10 @@ config :michel, Michel.EventStore,
   database: "michel_eventstore_test",
   hostname: "localhost",
   pool_size: 1
+
+# If one day, test began to fail randomly,
+# this could be a potential cause
+# But I love fast tests <3
+config :commanded,
+  assert_receive_event_timeout: 100,
+  refute_receive_event_timeout: 100
