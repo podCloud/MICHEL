@@ -1,13 +1,13 @@
-defmodule Michel.View.Projectors.UniqueVisit do
+defmodule Michel.Stats.Projectors.UniqueVisit do
   use Commanded.Projections.Ecto,
     application: Michel.Commanded,
     repo: Michel.Repo,
-    name: "View.Projectors.UniqueVisit",
+    name: "Stats.Projectors.UniqueVisit",
     consistency: :strong
 
   alias Michel.Repo
-  alias Michel.View.Events.FeedVisited
-  alias Michel.View.Projections.UniqueVisit
+  alias Michel.Stats.Events.FeedVisited
+  alias Michel.Stats.Projections.UniqueVisit
 
   project(%FeedVisited{track_id: track_id, created_at: created_at}, _metadata, fn multi ->
     datetime = created_at |> NaiveDateTime.from_iso8601!() |> NaiveDateTime.truncate(:second)

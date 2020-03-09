@@ -1,8 +1,8 @@
-defmodule Michel.View do
+defmodule Michel.Stats do
   alias Michel.Commanded
   alias Michel.Repo
-  alias Michel.View.Commands.VisitFeed
-  alias Michel.View.Projections.UniqueVisit
+  alias Michel.Stats.Commands.VisitFeed
+  alias Michel.Stats.Projections.UniqueVisit
 
   def visit_feed(attrs) do
     command = %VisitFeed{

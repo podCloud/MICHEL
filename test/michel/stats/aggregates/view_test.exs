@@ -1,7 +1,7 @@
-defmodule Michel.View.Aggregates.ViewTest do
+defmodule Michel.Stats.Aggregates.ViewTest do
   use Michel.DataCase
   import Commanded.Assertions.EventAssertions
-  alias Michel.View.Events.FeedVisited
+  alias Michel.Stats.Events.FeedVisited
 
   test "should emit an event when valid" do
     id = UUID.uuid4()

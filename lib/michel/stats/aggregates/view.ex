@@ -1,4 +1,4 @@
-defmodule Michel.View.Aggregates.View do
+defmodule Michel.Stats.Aggregates.View do
   defstruct [
     :id,
     :track_id,
@@ -11,9 +11,9 @@ defmodule Michel.View.Aggregates.View do
     :created_at
   ]
 
-  alias Michel.View.Commands.VisitFeed
-  alias Michel.View.Events.FeedVisited
-  alias Michel.View.Projections.UniqueVisit
+  alias Michel.Stats.Commands.VisitFeed
+  alias Michel.Stats.Events.FeedVisited
+  alias Michel.Stats.Projections.UniqueVisit
   alias Michel.Repo
   alias __MODULE__
 

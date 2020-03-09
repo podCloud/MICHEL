@@ -11,7 +11,7 @@ defmodule Michel.Application do
       Michel.Commanded,
       Michel.Repo,
       MichelWeb.Endpoint,
-      Michel.View.Supervisor
+      Michel.Stats.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

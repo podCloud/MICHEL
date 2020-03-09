@@ -1,4 +1,4 @@
-defmodule Michel.View.Supervisor do
+defmodule Michel.Stats.Supervisor do
   use Supervisor
 
   def start_link(arg) do
@@ -8,7 +8,7 @@ defmodule Michel.View.Supervisor do
   def init(_arg) do
     Supervisor.init(
       [
-        Michel.View.Projectors.UniqueVisit
+        Michel.Stats.Projectors.UniqueVisit
       ],
       strategy: :one_for_one
     )

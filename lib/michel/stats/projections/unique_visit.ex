@@ -1,4 +1,4 @@
-defmodule Michel.View.Projections.UniqueVisit do
+defmodule Michel.Stats.Projections.UniqueVisit do
   use Ecto.Schema
 
   @primary_key {:track_id, :string, autogenerate: false}
