@@ -1,14 +1,13 @@
-defmodule Michel.Stats.Aggregates.ViewTest do
+defmodule Michel.Stats.Aggregates.DownloadTest do
   use Michel.DataCase
   import Commanded.Assertions.EventAssertions
-  alias Michel.Stats.Events.FeedVisited
+  alias Michel.Stats.Events.EnclosureDownloaded
 
   test "should emit an event when valid" do
     id = UUID.uuid4()
+    Michel.Commanded.dispatch(build(:download_enclosure, id: id))
 
-    Michel.Commanded.dispatch(build(:visit_feed, id: id))
-
-    assert_receive_event(Michel.Commanded, FeedVisited, fn event ->
+    assert_receive_event(Michel.Commanded, EnclosureDownloaded, fn event ->
       event.id == id
     end)
   end
@@ -17,16 +16,16 @@ defmodule Michel.Stats.Aggregates.ViewTest do
     track_id = UUID.uuid4()
 
     Michel.Commanded.dispatch(
-      build(:visit_feed, track_id: track_id, created_at: "2020-03-06T17:00:00.45")
+      build(:download_enclosure, track_id: track_id, created_at: "2020-03-06T17:00:00.45")
     )
 
     Michel.Commanded.dispatch(
-      build(:visit_feed, track_id: track_id, created_at: "2020-03-07T16:59:59.45")
+      build(:download_enclosure, track_id: track_id, created_at: "2020-03-07T16:59:59.45")
     )
 
     assert_receive_event(
       Michel.Commanded,
-      FeedVisited,
+      EnclosureDownloaded,
       fn event ->
         event.created_at == "2020-03-06T17:00:00"
       end,
@@ -35,7 +34,7 @@ defmodule Michel.Stats.Aggregates.ViewTest do
       end
     )
 
-    refute_receive_event(Michel.Commanded, FeedVisited,
+    refute_receive_event(Michel.Commanded, EnclosureDownloaded,
       predicate: fn event -> event.created_at == "2020-03-06T16:59:59.45" end
     ) do
     end
@@ -45,16 +44,16 @@ defmodule Michel.Stats.Aggregates.ViewTest do
     track_id = UUID.uuid4()
 
     Michel.Commanded.dispatch(
-      build(:visit_feed, track_id: track_id, created_at: "2020-03-06T17:00:00.45")
+      build(:download_enclosure, track_id: track_id, created_at: "2020-03-06T17:00:00.45")
     )
 
     Michel.Commanded.dispatch(
-      build(:visit_feed, track_id: track_id, created_at: "2020-03-07T17:00:00.45")
+      build(:download_enclosure, track_id: track_id, created_at: "2020-03-07T17:00:00.45")
     )
 
     assert_receive_event(
       Michel.Commanded,
-      FeedVisited,
+      EnclosureDownloaded,
       fn event ->
         event.created_at == "2020-03-06T17:00:00"
       end,
@@ -65,7 +64,7 @@ defmodule Michel.Stats.Aggregates.ViewTest do
 
     assert_receive_event(
       Michel.Commanded,
-      FeedVisited,
+      EnclosureDownloaded,
       fn event ->
         event.created_at == "2020-03-07T17:00:00"
       end,

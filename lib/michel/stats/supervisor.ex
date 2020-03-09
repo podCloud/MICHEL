@@ -8,7 +8,8 @@ defmodule Michel.Stats.Supervisor do
   def init(_arg) do
     Supervisor.init(
       [
-        Michel.Stats.Projectors.UniqueVisit
+        Michel.Stats.Projectors.UniqueVisit,
+        Michel.Stats.Projectors.UniqueDownload
       ],
       strategy: :one_for_one
     )
