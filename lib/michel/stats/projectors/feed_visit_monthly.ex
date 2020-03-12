@@ -1,8 +1,8 @@
-defmodule Michel.Stats.Projectors.FeedVisit do
+defmodule Michel.Stats.Projectors.FeedVisitMonthly do
   use Commanded.Projections.Ecto,
     application: Michel.Commanded,
     repo: Michel.Repo,
-    name: "Stats.Projectors.FeedVisit",
+    name: "Stats.Projectors.FeedVisitMonthly",
     consistency: :strong
 
   alias Michel.Repo
@@ -11,13 +11,14 @@ defmodule Michel.Stats.Projectors.FeedVisit do
 
   project(%FeedVisited{} = event, _metadata, fn multi ->
     date = event.created_at |> NaiveDateTime.from_iso8601!() |> NaiveDateTime.to_date()
+    first_day_of_month = %{date | day: 1}
 
-    case Repo.get_by(FeedVisit, feed_id: event.feed_id, date: date, type: "daily") do
+    case Repo.get_by(FeedVisit, feed_id: event.feed_id, date: first_day_of_month, type: "monthly") do
       nil ->
         Ecto.Multi.insert(multi, :feed_visits, %FeedVisit{
           feed_id: event.feed_id,
-          type: "daily",
-          date: date,
+          type: "monthly",
+          date: first_day_of_month,
           count: 1
         })
 

@@ -10,7 +10,8 @@ defmodule Michel.Stats.Supervisor do
       [
         Michel.Stats.Projectors.UniqueVisit,
         Michel.Stats.Projectors.UniqueDownload,
-        Michel.Stats.Projectors.FeedVisit
+        Michel.Stats.Projectors.FeedVisitDaily,
+        Michel.Stats.Projectors.FeedVisitMonthly
       ],
       strategy: :one_for_one
     )
