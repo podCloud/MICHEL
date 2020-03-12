@@ -6,7 +6,7 @@ defmodule Michel.Repo.Migrations.UniqueVisit do
       add(:track_id, :string, primary_key: true)
       add(:created_at, :naive_datetime)
 
-      timestamps(type: :naive_datetime_usec)
+      timestamps()
     end
   end
 end

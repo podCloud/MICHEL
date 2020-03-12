@@ -11,7 +11,9 @@ defmodule Michel.Stats.Supervisor do
         Michel.Stats.Projectors.UniqueVisit,
         Michel.Stats.Projectors.UniqueDownload,
         Michel.Stats.Projectors.FeedVisitDaily,
-        Michel.Stats.Projectors.FeedVisitMonthly
+        Michel.Stats.Projectors.FeedVisitMonthly,
+        Michel.Stats.Projectors.EnclosureDownloadDaily,
+        Michel.Stats.Projectors.EnclosureDownloadMonthly
       ],
       strategy: :one_for_one
     )

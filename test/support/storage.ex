@@ -34,6 +34,7 @@ defmodule Michel.Storage do
       unique_visits,
       unique_downloads,
       feed_visits,
+      enclosure_downloads,
       projection_versions
     RESTART IDENTITY;
     """
