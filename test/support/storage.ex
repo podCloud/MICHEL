@@ -33,6 +33,7 @@ defmodule Michel.Storage do
     TRUNCATE TABLE
       unique_visits,
       unique_downloads,
+      feed_visits,
       projection_versions
     RESTART IDENTITY;
     """

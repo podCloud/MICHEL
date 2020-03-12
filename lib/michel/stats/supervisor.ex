@@ -9,7 +9,8 @@ defmodule Michel.Stats.Supervisor do
     Supervisor.init(
       [
         Michel.Stats.Projectors.UniqueVisit,
-        Michel.Stats.Projectors.UniqueDownload
+        Michel.Stats.Projectors.UniqueDownload,
+        Michel.Stats.Projectors.FeedVisit
       ],
       strategy: :one_for_one
     )

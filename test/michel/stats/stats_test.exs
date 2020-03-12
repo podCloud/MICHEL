@@ -2,7 +2,8 @@ defmodule Michel.Stats.StatsTest do
   use Michel.DataCase
 
   alias Michel.Stats
-  alias Michel.Stats.Projections.{UniqueVisit, UniqueDownload}
+  alias Michel.Repo
+  alias Michel.Stats.Projections.{UniqueVisit, UniqueDownload, FeedVisit}
 
   test "should create unique visit if none exists for a given track_id" do
     track_id = UUID.uuid4()
@@ -78,5 +79,37 @@ defmodule Michel.Stats.StatsTest do
 
     assert download.track_id == track_id
     assert download.created_at == ~N[2020-03-07 17:00:00]
+  end
+
+  test "should create a daily count of 1 for a unique track_id" do
+    feed_id = UUID.uuid4()
+
+    Stats.visit_feed(build(:view, feed_id: feed_id, created_at: "2020-03-10T17:00:00.45"))
+
+    stats = Repo.get_by!(FeedVisit, feed_id: feed_id, type: "daily", date: "2020-03-10")
+    assert stats.count == 1
+  end
+
+  test "should create a daily count of 3 for three unique track_id" do
+    feed_id = UUID.uuid4()
+
+    Stats.visit_feed(
+      build(:view, feed_id: feed_id, track_id: "1", created_at: "2020-03-10T17:00:00.45")
+    )
+
+    Stats.visit_feed(
+      build(:view, feed_id: feed_id, track_id: "2", created_at: "2020-03-10T17:00:00.45")
+    )
+
+    Stats.visit_feed(
+      build(:view, feed_id: feed_id, track_id: "3", created_at: "2020-03-10T17:00:00.45")
+    )
+
+    Stats.visit_feed(
+      build(:view, feed_id: feed_id, track_id: "1", created_at: "2020-03-11T16:59:59.45")
+    )
+
+    stats = Repo.get_by!(FeedVisit, feed_id: feed_id, type: "daily", date: "2020-03-10")
+    assert stats.count == 3
   end
 end
